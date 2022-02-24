@@ -15,19 +15,15 @@ function convertNegatives(matrix) {
 	// in the beginning we want to find all of the positive positions
 	// then we use them in the wile loop to convert numbers and 
 	// add those to the new queue, swapping next and current queue
-	let nextPassQueue = getAllPositivePositions(matrix);
+	let queue = getAllPositivePositions(matrix);
 	
 	// actual value we are interested in returning
 	let passes = 0;
-	while(nextPassQueue.length > 0) {
+	while(queue.length > 0) {
 		// Everytime the while loop hit is, we swap the queues
-		let currentPassQueue = nextPassQueue;
-		
-		// we will take values from current queue to convert
-		// converted values are gonna be stored in the nextPassQueue
-		nextPassQueue = [];
-		while (currentPassQueue.length > 0) {
-			const [currentRow, currentCol] = currentPassQueue.shift(); // take the 1st added element
+		let currentQueueSize = queue.length;
+		while (currentQueueSize > 0) {
+			const [currentRow, currentCol] = queue.shift(); // take the 1st added element
 			
 			// get the current element's neighbors from the matrix
 			const adjacentPositions = getAdjacentPositions(currentRow, currentCol, matrix);
@@ -36,9 +32,10 @@ function convertNegatives(matrix) {
 				if (matrix[row][col] < 0) { // neighbor of the current element is negative, convert it 
 																		//and add it to the queue
 					matrix[row][col] *= -1;
-					nextPassQueue.push([row, col]);  // push the indices as an array of 2 elements i, j
+					queue.push([row, col]);  // push the indices as an array of 2 elements i, j
 				} 
 			}
+			currentQueueSize--;
 		}
 		passes++;
 	}
@@ -77,3 +74,4 @@ function getAllPositivePositions(matrix) {
 
 // Do not edit the line below.
 exports.minimumPassesOfMatrix = minimumPassesOfMatrix;
+
