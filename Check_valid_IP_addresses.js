@@ -17,7 +17,7 @@
 // and in no particular order. If no valid IP addresses can be created 
 // from the string, function should return an empty list. 
 
-// O(1) time & space complaxity, since IP is always up to 12 characters
+// O(1) time & space complexity, since IP is always up to 12 characters
 
 function validIPAddresses(string) {
 	// all possible found ips to return
